@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{entityDto.id > 0 ? 'Edit' : 'Add'}}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row">
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <h2>wait...</h2>
+            </div>
+           
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>DanceTypes</mat-label>
+                    <mat-select placeholder="" name="danceType" required formControlName="danceTypeId">
+                        <mat-option *ngFor="let entry of danceTypesResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Songs</mat-label>
+                    <mat-select placeholder="" name="song" required formControlName="songId">
+                        <mat-option *ngFor="let entry of songsResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Count dance by song</mat-label>
+                    <input type="number" matInput placeholder="" formControlName="countDanceBySong">
+                </mat-form-field>
+            </div>
+        
+        </div>
+  
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>
+  
+  </form>

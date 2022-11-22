@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{entityDto.id > 0 ? 'Edit' : 'Add'}}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row">
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <h2>wait...</h2>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Entertainers</mat-label>
+                    <mat-select placeholder="" name="entertainer" required formControlName="entertainerId">
+                        <mat-option *ngFor="let entry of entertainersResults" [value]="entry.id">
+                            {{ entry.firstName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Input</mat-label>
+                    <input matInput [ngxMatDatetimePicker]="pickerInput" placeholder="" formControlName="input"
+                        [min]="minDate" [max]="maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerInput"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerInput [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
+                        [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color"
+                        [enableMeridian]="enableMeridian">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Output</mat-label>
+                    <input matInput [ngxMatDatetimePicker]="pickerOutput" placeholder="" formControlName="output"
+                        [min]="minDate" [max]="maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerOutput"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerOutput [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
+                        [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color"
+                        [enableMeridian]="enableMeridian">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                
+                    <mat-checkbox color="primary" formControlName="isActive">Active</mat-checkbox>
+                
+            </div>
+        
+        </div>
+  
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>
+  
+  </form>

@@ -1,0 +1,90 @@
+
+      <div class="clearfix" [@routerTransition]>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Prices schedules</mat-card-title>
+            </mat-card-header>
+
+            <mat-form-field id="add-search" style="max-width: 30%;">
+                <mat-label>Filter</mat-label>
+                <input matInput placeholder="Ex: Lotto OVER " [(ngModel)]="filter" (ngModelChange)="loadSearch()"
+                       (focusin)="updateIconColor()" (focusout)="updateIconColor()">
+                <mat-icon matSuffix id="clear-icon" (click)="clearFilter()" color="{{ clearIconColor }}">{{searchIcon}}</mat-icon>
+            <mat-hint>Filter by: group or type</mat-hint>
+            </mat-form-field>
+
+            <div>
+                <button mat-mini-fab color="primary" (click)="openCreateDialog()">
+                    <mat-icon aria-label="Crear">add</mat-icon>
+                </button>
+            </div>
+
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource" (matSortChange)="sortData($event)">
+
+                <ng-container matColumnDef="keyGroupName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Group</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Group:</span>
+                        {{valueRow.typeBusinessElementMainBusinessElementName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="keyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Type business element</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Type business element:</span>
+                        {{valueRow.typeBusinessElementName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="shiftTitle">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Shift</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Shift:</span>
+                        {{valueRow.shiftTitle}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Price:</span>
+                        ${{valueRow.price}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="percent">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Percent</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Percent:</span>
+                        {{valueRow.percent}}%
+                    </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Actions:</span>
+                        <button mat-icon-button (click)="openEditDialog(valueRow)" color="primary"> <mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button (click)="onDeleteClick(valueRow)" color="warn"><mat-icon><span matTooltip="Delete">delete</span></mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-card-actions>
+                <mat-paginator mat-button #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                </mat-paginator>
+            </mat-card-actions>
+
+
+        </mat-card>
+</div>

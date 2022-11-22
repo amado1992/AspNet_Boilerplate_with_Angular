@@ -1,0 +1,99 @@
+
+    <div class="row" style="border: solid 6px brown;">
+             
+        <div class="col-12 col-lg-6 col-xl-6" style="background: blue;">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="p-2" *ngFor="let in of counter(7); let ind = index">
+        
+                    <i style="color: #e2b280">{{scheduleObj(ind)?.title}}</i>
+                    <div class="row" *ngFor="let in of counter(1); let i = index">
+        
+                        <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                            [ngStyle]="{'background': item.background}">
+                            {{countDanceObj(ind, item)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 col-lg-6 col-xl-6" style="background: cornflowerblue;">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="p-2" *ngFor="let in of counter(7); let ind = index">
+        
+                    <i style="color: red;">{{scheduleObjTwo(ind)?.title}}</i>
+                    <div class="row" *ngFor="let in of counter(1); let i = index">
+        
+                        <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                            [ngStyle]="{'background': item.background}">
+                            {{countDanceObjTwo(ind, item)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background: #acaaac; border: solid 1px gray;">
+    
+            <div class="row" *ngFor='let in of counter(1) ;let i = index'>
+                <div *ngFor="let item of danceSumTotalResuts; index as i;"
+                    class="col-sm-12 col-md-6 col-lg-6 col-xl-6 text-center" [ngStyle]="{'background': item.background}">
+    
+    
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <i>Total: {{item.danceTotal}}</i>
+                        </div>
+                        <div class="pl-2">
+                            <i>Fees: ${{item.customerDanceFeesTotal}}</i>
+                        </div>
+                    </div>
+    
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2" style="background: #acaaac; border: solid 1px gray;">
+    
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#2ecc71'}">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <i *ngIf="totalSumResuts?.quotaPaidTotal != null"><strong>Total $ collecte:</strong>
+                                ${{totalSumResuts?.quotaPaidTotal}}</i>
+                            <i *ngIf="totalSumResuts?.quotaPaidTotal == null"><strong>Total $ collecte:</strong> $0</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <i>Opener</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2" style="background: cornflowerblue;border: solid 1px gray;">
+    
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#a0729d'}">
+                    <i *ngIf="totalSumResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong>
+                        ${{totalSumResuts?.percentExposeTotal}}</i>
+                    <i *ngIf="totalSumResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#8eaac5'}">
+                    <i *ngIf="totalSumResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong>
+                        ${{totalSumResuts?.percentEntertainerTotal}}</i>
+                    <i *ngIf="totalSumResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 text-center" style="background: #acaaac;border: solid 1px gray;">
+            <i *ngIf="totalSumResuts?.baseFeeTotal != null"><strong>Floor fee:</strong> ${{totalSumResuts?.baseFeeTotal}}</i>
+            <i *ngIf="totalSumResuts?.baseFeeTotal == null"><strong>Floor fee:</strong> $0</i>
+        </div>
+    
+    </div>

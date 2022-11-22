@@ -1,0 +1,88 @@
+
+      <div class="clearfix" [@routerTransition]>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Managers</mat-card-title>
+            </mat-card-header>
+
+            <mat-form-field id="add-search" style="max-width: 30%;">
+                <input matInput placeholder="Filter" [(ngModel)]="filter" (ngModelChange)="loadSearch()"
+                       (focusin)="updateIconColor()" (focusout)="updateIconColor()">
+                <mat-icon matSuffix id="clear-icon" (click)="clearFilter()" color="{{ clearIconColor }}">{{searchIcon}}</mat-icon>
+            </mat-form-field>
+
+            <div>
+                <button mat-mini-fab color="primary" (click)="openCreateDialog()">
+                    <mat-icon aria-label="Crear">add</mat-icon>
+                </button>
+            </div>
+
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource" (matSortChange)="sortData($event)">
+
+                <ng-container matColumnDef="firstName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>First name</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">First name:</span>
+                        {{valueRow.firstName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Last name:</span>
+                        {{valueRow.lastName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="address">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Address:</span>
+                        {{valueRow.address}}
+                    </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Actions:</span>
+                        <button mat-icon-button (click)="openEditDialog(valueRow)" color="primary"> <mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button (click)="onDeleteClick(valueRow)" color="warn"><mat-icon><span matTooltip="Delete">delete</span></mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+
+                <!--<ng-container matColumnDef="upload">
+                    <mat-header-cell *matHeaderCellDef>Upload document</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Upload document:</span>
+                        <button mat-icon-button (click)="openUploadDialog(valueRow)" color="primary"> <mat-icon>upload_file</mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="download">
+                    <mat-header-cell *matHeaderCellDef>See document</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Download document:</span>
+                        <button mat-icon-button (click)="openDownloadDialog(valueRow)" color="primary"> <mat-icon>description</mat-icon></button>
+                    </mat-cell>
+                </ng-container>-->
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-card-actions>
+                <mat-paginator mat-button #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                </mat-paginator>
+            </mat-card-actions>
+
+
+        </mat-card>
+</div>

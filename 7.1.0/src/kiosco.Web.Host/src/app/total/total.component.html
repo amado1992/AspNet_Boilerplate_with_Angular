@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Total</h2>
+
+    <mat-dialog-content>
+        <div class="container" style="background: gray;">
+            <div class="row">
+                <div matTooltip="Collect all monies due" [matTooltipPosition]="'above'" class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 background-col" (click)="quotaSumary()" style="cursor: pointer;">
+                    <div class="d-flex flex-row justify-content-center">
+                        
+                    <mat-icon>currency_exchange</mat-icon>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 background-col"  [ngStyle]="{'background':quotaResut?.quotaPaidTotal == 0 || quotaResut?.quotaPaidTotal == null || quotaResut?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                    <i *ngIf="quotaResut?.quotaPaidTotal != null"><strong>Quota paid: </strong>${{quotaResut?.quotaPaidTotal}}</i>
+                    <i *ngIf="quotaResut?.quotaPaidTotal == null"><strong>Quota paid: </strong>$0</i>  
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 background-col">
+                <i *ngIf="quotaResut?.feePayableTotal != null"><strong>Fee payable: </strong>${{quotaResut?.feePayableTotal}}</i>
+                <i *ngIf="quotaResut?.feePayableTotal == null"><strong>Fee payable: </strong>$0</i> 
+           </div>
+           <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 background-col">
+            <i *ngIf="quotaResut?.percentExposeTotal != null"><strong>30% Exposé: </strong>${{quotaResut?.percentExposeTotal}}</i>
+            <i *ngIf="quotaResut?.percentExposeTotal == null"><strong>30% Exposé: </strong>$0</i>  
+           
+       </div>
+       <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 background-col">
+        <i *ngIf="quotaResut?.percentEntertainerTotal != null"><strong>70% Entertainer: </strong>${{quotaResut?.percentEntertainerTotal}}</i>
+        <i *ngIf="quotaResut?.percentEntertainerTotal == null"><strong>70% Entertainer: </strong>$0</i>  
+        
+   </div>
+   <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 background-col">
+    <i *ngIf="quotaResut?.baseFee != null"><strong>Base fee: </strong>${{quotaResut?.baseFee}}</i>
+    <i *ngIf="quotaResut?.baseFee == null"><strong>Base fee: </strong>$0</i>
+</div>
+        
+            </div>
+        </div>
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+        
+        <button style="margin-right: 10px;" mat-raised-button color="primary" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Accept
+        </button>
+
+    </mat-dialog-actions>

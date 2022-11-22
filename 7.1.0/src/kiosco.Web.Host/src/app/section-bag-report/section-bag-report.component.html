@@ -1,0 +1,9 @@
+<!--<div style="border: solid 4px gray;" class="row mt-2 p-2" *ngFor="let item of mainBusinessElementResults; index as i;">
+    <app-deposit-bag-report [shift]="shiftObj" [group]="item" (changeInfo)="changeInfo($event)"></app-deposit-bag-report>
+</div>-->
+<app-deposit-bag-report *ngFor="let item of mainBusinessElementResults; index as i;" [shift]="shiftObj" [group]="item"
+    [section]="section" (changeInfo)="changeInfo($event)"></app-deposit-bag-report>
+<div class="d-flex flex-row justify-content-center p-3">
+    <div class="p-2">Section Total:</div>
+    <div class="p-2" style="border: solid 2px gray;"><strong><i>${{sectionTotal?.total}}</i></strong></div>
+</div>

@@ -1,0 +1,149 @@
+
+      <div class="clearfix" [@routerTransition]>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Manage todays business</mat-card-title>
+            </mat-card-header>
+
+            <!--<div>
+                <button mat-mini-fab color="primary" (click)="openCreateDialog()">
+                    <mat-icon aria-label="Crear">add</mat-icon>
+                </button>
+            </div>-->
+
+            <mat-form-field id="add-search" style="max-width: 30%;">
+                <mat-label>Filter</mat-label>
+                <input matInput placeholder="Ex: Laura" [(ngModel)]="filter" (ngModelChange)="loadSearch()"
+                    (focusin)="updateIconColor()" (focusout)="updateIconColor()">
+                <mat-icon matSuffix id="clear-icon" (click)="clearFilter()" color="{{ clearIconColor }}">{{searchIcon}}</mat-icon>
+                <mat-hint>Filter by: First name or stage name</mat-hint>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always" color="primary" style="max-width: 30%;">
+                <mat-label>Select a day of the week</mat-label>
+                <input [formControl]="dateWeek" matInput [matDatepicker]="pickerWeek" placeholder="" name="permitWeek" (dateChange)="onDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="pickerWeek"></mat-datepicker-toggle>
+                <mat-datepicker #pickerWeek></mat-datepicker>
+            </mat-form-field>
+            
+            <button (click)="refresh()" mat-icon-button aria-label="Example icon button with a heart icon">
+                <mat-icon>refresh</mat-icon>
+            </button>
+
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource" (matSortChange)="sortData($event)">
+
+                <ng-container matColumnDef="activityTodayEntertainerFirstName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>First name</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">First name:</span>
+                        {{valueRow.activityTodayEntertainerFirstName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="activityTodayEntertainerLastName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Last name:</span>
+                        {{valueRow.activityTodayEntertainerLastName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="activityTodayEntertainerStageName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Stage name</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Stage name:</span>
+                        {{valueRow.activityTodayEntertainerStageName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="activityTodayEntertainerMobilePhone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile phone</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Mobile phone:</span>
+                        {{valueRow.activityTodayEntertainerMobilePhone}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="danceTypeTitle">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dance type</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Dance type:</span>
+                        {{valueRow.danceTypeTitle}}
+                    </mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="shiftTitle">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Shift</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Shift:</span>
+                        {{valueRow.shiftTitle}}
+                    </mat-cell>
+                </ng-container>
+
+                <!--<ng-container matColumnDef="keyGroupName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Group</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Group:</span>
+                        {{valueRow.keyGroupName}}
+                    </mat-cell>
+                </ng-container>-->
+
+                <!--<ng-container matColumnDef="keyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Restriction</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Restriction:</span>
+                        {{valueRow.keyName}}
+                    </mat-cell>
+                </ng-container>-->
+
+                <ng-container matColumnDef="timeWorked">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TimesWorked</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">TimesWorked:</span>
+                        <strong>{{valueRow.timeDance}} min</strong>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="start">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Start</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">Start:</span>
+                        {{valueRow.start | date:'fullDate'}}
+                    </mat-cell>
+                </ng-container>
+
+                <!--<ng-container matColumnDef="end">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>End</mat-header-cell>
+                    <mat-cell class="firt-cell" *matCellDef="let valueRow">
+                        <span class="mobile-label">End:</span>
+                        {{valueRow.end}}
+                    </mat-cell>
+                </ng-container>-->
+                
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let valueRow">
+                        <span class="mobile-label">Actions:</span>
+                        <!--<button mat-icon-button (click)="openEditDialog(valueRow)" color="primary"> <mat-icon>edit</mat-icon></button>-->
+                        <button mat-icon-button (click)="onDeleteClick(valueRow)" color="warn"><mat-icon><span matTooltip="Delete">delete</span></mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-card-actions>
+                <mat-paginator mat-button #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                </mat-paginator>
+            </mat-card-actions>
+
+
+        </mat-card>
+</div>

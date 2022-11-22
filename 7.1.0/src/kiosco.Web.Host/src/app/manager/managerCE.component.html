@@ -1,0 +1,186 @@
+<h2 mat-dialog-title>{{entityDto.id > 0 ? 'Edit' : 'Add'}}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row">
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <h2>wait...</h2>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>First name</mat-label>
+                    <input matInput placeholder="First name" formControlName="firstName" required>
+                    <mat-hint>Fill in first name.</mat-hint>
+                    <mat-error *ngIf="firstNameControl.invalid && (firstNameControl.dirty || firstNameControl.touched)">
+                        <span *ngIf="firstNameControl.hasError('required')">
+                            You must fill in the first name.
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Last name</mat-label>
+                    <input matInput placeholder="Last name" formControlName="lastName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Stage name</mat-label>
+                    <input matInput placeholder="Stage name" formControlName="stageName">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>SSN/ITIN</mat-label>
+                    <input matInput placeholder="SSN" formControlName="ssn">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Date hired</mat-label>
+                    <input matInput [matDatepicker]="pickerDateHired" formControlName="dateHired" placeholder=""
+                        name="dateHired">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDateHired"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDateHired></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Clubs</mat-label>
+                    <mat-select placeholder="" name="club" formControlName="clubId">
+                        <mat-option *ngFor="let entry of clubsResults" [value]="entry.id">
+                            {{ entry.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Categorys</mat-label>
+                    <mat-select placeholder="" name="category" formControlName="categoryId">
+                        <mat-option *ngFor="let entry of categorys" [value]="entry.id">
+                            {{ entry.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Jobs</mat-label>
+                    <mat-select placeholder="" name="job" formControlName="jobId">
+                        <mat-option *ngFor="let entry of jobsResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="" formControlName="address">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Address2</mat-label>
+                    <input matInput placeholder="" formControlName="address2">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>City</mat-label>
+                    <input matInput placeholder="" formControlName="city">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="" formControlName="state">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>ZIPCode</mat-label>
+                    <input matInput placeholder="" formControlName="zipCode">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>DLState</mat-label>
+                    <input matInput placeholder="" formControlName="dlState">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>DLNumber</mat-label>
+                    <input matInput placeholder="" formControlName="dlNumber">
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Mobile phone</mat-label>
+                    <input matInput placeholder="" formControlName="mobilePhone">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Home phone</mat-label>
+                    <input matInput placeholder="" formControlName="homePhone">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Dob</mat-label>
+                    <input matInput [matDatepicker]="pickerDob" formControlName="dob" placeholder="" name="dob">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDob"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDob></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>
+
+</form>

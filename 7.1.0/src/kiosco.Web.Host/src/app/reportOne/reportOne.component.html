@@ -1,0 +1,25 @@
+<main>
+    <div style="background: #9c8cb3;" class="container-fluid"
+        *ngFor="let item of entertainersActiveResuts; index as i;">
+        <app-reportOne-element [indice]="i" [element]="item" (changeInfo)="changeInfo($event)"
+            (showTotal)="showTotal($event)">
+        </app-reportOne-element>
+    </div>
+
+    <div style="background: #9c8cb3;" class="container-fluid" *ngIf="entertainersActiveResuts.length == 0">
+        <app-reportOne-element [indice]="0" [element]="" (changeInfo)="changeInfo($event)"
+            (showTotal)="showTotal($event)">
+        </app-reportOne-element>
+    </div>
+</main>
+
+<main>
+
+    <app-floorReportTotal [infoReport]="infoReport"></app-floorReportTotal>
+
+</main>
+
+<!--only mobil y tablet-->
+
+
+<!--end only mobil y tablet-->

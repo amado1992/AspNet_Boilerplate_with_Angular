@@ -1,0 +1,150 @@
+<div class="row" *ngIf="index == 0">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <img width="50%" src="/assets/img/expose.png">
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <h1>EXPOSÉ FLOOR REPORT  {{ today | date:'shortDate' }}</h1>
+    </div>
+</div>
+
+<div class="row" *ngIf="index == 0">
+    <div class="col-3" style="background: #2ecc71;">
+        <h6 style="margin-top: 10px;">$400 VIP 1 Hour</h6>
+    </div>
+    <div class="col-3" style="background: #e2b280;">
+        <h6 style="margin-top: 10px;">$200 VIP 1/2 Hour</h6>
+    </div>
+    <div class="col-3" style="background: #b4a4c3">
+        <h6 style="margin-top: 10px;">$20 VIP Dance</h6>
+    </div>
+    <div class="col-3" style="background: #8eaac5;">
+        <h6 style="margin-top: 10px;">$20 Exposé Dance</h6>
+    </div>
+</div>
+
+
+<div class="row grid_custom">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" style="background: #a0729d;">
+        <div class="text-center pt-xl-4 pt-lg-4" style="color: white;">
+            <h5>{{element?.entertainerStageName}}</h5>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-12 col-lg-6 col-xl-6" style="background: blue;">
+    
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-row justify-content-center">
+                    <strong><i style="color: #e2b280">------$15 Floor Fee------</i></strong>
+                </div>
+            </div>
+        </div>
+        
+            <div class="d-flex flex-row justify-content-center">
+                <div class="p-2" *ngFor="let in of counter(7); let ind = index">
+    
+                    <i style="color: #e2b280">{{scheduleObj(ind)?.title}}</i>
+                    <div class="row" *ngFor="let in of counter(1); let i = index">
+    
+                        <div *ngFor="let item of entertainerDancesResuts; index as i;"
+                            class="col-sm-12 col-md-6 col-lg-6 col-xl-6" [ngStyle]="{'background': item.background}">
+                            {{countDanceObj(ind, item)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="col-12 col-lg-5 col-xl-5" style="background: cornflowerblue;">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-row justify-content-center">
+                    <strong><i style="color: red;">------$25 Floor Fee------</i></strong>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+                    <div class="p-2" *ngFor="let in of counter(7); let ind = index">
+    
+                        <i style="color: red;">{{scheduleObjNight(ind)?.title}}</i>
+                        <div class="row" *ngFor="let in of counter(1); let i = index">
+    
+                            <div *ngFor="let item of entertainerDancesResuts; index as i;"
+                                class="col-sm-12 col-md-6 col-lg-6 col-xl-6" [ngStyle]="{'background': item.background}">
+                                {{countDanceObjNight(ind, item)}}
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1" style="background: #a0729d;"></div>
+    <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #acaaac; border: solid 1px gray;">
+
+        <div class="row" *ngFor='let in of counter(1) ;let i = index'>
+            <div *ngFor="let item of entertainerDancesResuts; index as i;"
+                class="col-sm-12 col-md-6 col-lg-6 col-xl-6 text-center" [ngStyle]="{'background': item.background}">
+
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div>
+                        <i>Total: {{item.count}}</i>
+                    </div>
+                    <div class="pl-2">
+                        <i>Fees: ${{item.customerDanceFees}}</i>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2" style="background: #acaaac; border: solid 1px gray;">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#2ecc71'}">
+                <div class="d-flex flex-row justify-content-center">
+                    <div>
+                        <i>Total $ collecte: ${{quotaResut?.quotaPaidTotal}}</i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#acaaac'}">
+                <div class="d-flex flex-row justify-content-center">
+                    <div>
+                        <i>Opener</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2" style="background: cornflowerblue;border: solid 1px gray;">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#a0729d'}">
+                <i *ngIf="quotaResut?.percentExposeTotal != null">30% Exposé:
+                    ${{quotaResut?.percentExposeTotal}}</i>
+                <i *ngIf="quotaResut?.percentExposeTotal == null">30% Exposé: $0</i>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-12 col-xl-12 text-center" [ngStyle]="{'background': '#8eaac5'}">
+                <i *ngIf="quotaResut?.percentEntertainerTotal != null">70% Entertainer:
+                    ${{quotaResut?.percentEntertainerTotal}}</i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 text-center" style="background: #acaaac;border: solid 1px gray;">
+        <i *ngIf="quotaResut?.baseFee != null">Floor fee: ${{quotaResut?.baseFee}}</i>
+        <i *ngIf="quotaResut?.baseFee == null">Floor fee: $0</i>
+    </div>
+
+</div>
+
+
+<!--xl 992 hasta 1439-->
+<!--end xl 992 hasta 1439-->
+
+<!--only for mobil and table-->
+<!--end only for mobil and table-->

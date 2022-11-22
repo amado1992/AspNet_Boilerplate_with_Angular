@@ -1,0 +1,210 @@
+<div class="row mt-1" *ngIf="index == 0">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="background: #acaaac;border: solid 1px gray;">
+        <mat-form-field>
+            <select matNativeControl (change)="selectShift($event)" name="shift" [formControl]="shiftId">
+                <option *ngFor="let entry of shiftsResults" [value]="entry.id">
+                    {{ entry.title }}
+                </option>
+            </select>
+        </mat-form-field>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-none d-lg-block d-xl-none d-xl-block" style="background: #acaaac;border: solid 1px gray;">
+        <mat-form-field>
+            <select matNativeControl (change)="selectTotal($event)" name="totalHide" [formControl]="totalId">
+                <option *ngFor="let entry of hideTotals" [value]="entry.id">
+                    {{ entry.title }}
+                </option>
+            </select>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="row" *ngIf="index == 0">
+    <div class="col-3" style="background: #2ecc71;">
+        <h6 style="margin-top: 10px;">$400 VIP 1 Hour</h6>
+    </div>
+    <div class="col-3" style="background: #e2b280;">
+        <h6 style="margin-top: 10px;">$200 VIP 1/2 Hour</h6>
+    </div>
+    <div class="col-3" style="background: #b4a4c3">
+        <h6 style="margin-top: 10px;">$20 VIP Dance</h6>
+    </div>
+    <div class="col-3" style="background: #8eaac5;">
+        <h6 style="margin-top: 10px;">$20 Exposé Dance</h6>
+    </div>
+</div>
+
+<div class="row grid_custom">
+    <div class="colsm-12 col-md-12 col-lg-1 col-xl-1"
+        [ngStyle]="{'background':element?.id == endDanceId ? 'red' : '#a0729d' }">
+
+        <div class="row">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
+                <div class="d-flex flex-row justify-content-center">
+                    <div *ngIf="element != undefined"><select style="margin-top: 10px;" matNativeControl
+                            placeholder="Range hour" name="base" [formControl]="baseId" (change)="selectBaseFee($event)">
+                            <option *ngFor="let entry of baseList" [value]="entry.id">
+                                {{ entry.title }}
+                            </option>
+                        </select></div>
+
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 mt-md-2 mt-sm-2 xs-margin-top">
+                <div class="text-center" style="color: white;">
+                    <h5>{{element?.entertainerStageName}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+        <div class="row p-3" *ngFor='let in of counter(1) ;let i = index'>
+            <div *ngFor="let item of entertainerDancesResuts; index as i;"
+                class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+
+                <span
+                    *ngIf="item.timeDanceDefault > 0 && item.isActiveDance && !item.extraShift">{{startCronometro(item,
+                    item.start, item.timeDance)}}</span>
+
+                <span *ngIf="item.timeDanceDefault > 0 && item.isActiveDance && item.extraShift">{{startCronometro(item,
+                    item.startExtraShift, item.timeDance)}}</span>
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="p-1"><strong>{{item.danceType}}</strong></div>
+
+                </div>
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div>
+                        <button matTooltip="Add dance" [matTooltipPosition]="'above'" mat-icon-button
+                            aria-label="Example icon button" (click)="getDance(item)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div>
+                        <button matTooltip="Subtracting dance" [matTooltipPosition]="'above'" mat-icon-button
+                            aria-label="Example icon button" (click)="onDelete(item)">
+                            <mat-icon style="color: #e74c3c">remove</mat-icon>
+                        </button>
+                    </div>
+
+                    <div *ngIf="item.codeDance == 'VIPFive'">
+                        <button matTooltip="Add 1 VIP Dance" [matTooltipPosition]="'above'" mat-icon-button
+                            aria-label="Example icon button" (click)="getDanceVIPFive(item)">
+                            <mat-icon>plus_one</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="item.timeDanceDefault > 0">
+                    <div class="col-8" *ngIf="item.timeDanceDefault > 0 && item.isActiveDance">
+
+                        <progressbar *ngIf="porcent > 0" [value]="porcent" type="info" [striped]="true"
+                            [animate]="true"><i>{{minute}}:{{second}}</i></progressbar>
+                        <progressbar *ngIf="porcent < 1" [value]="100" type="danger" [striped]="true" [animate]="true">
+                            <i>{{item.timeDance}}min</i>
+                        </progressbar>
+
+                    </div>
+                    <div matTooltip="Stop dance" [matTooltipPosition]="'above'"
+                        style="margin-top: -3px; cursor: pointer;" class="col-1"
+                        *ngIf="item.timeDanceDefault > 0 && item.isActiveDance">
+                        <mat-icon (click)="stopCronometro()">stop</mat-icon>
+                    </div>
+
+                </div>
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div>
+                        <i>Total: {{item.count}}</i>
+                    </div>
+                    <div class="pl-2">
+                        <i>Fees: ${{item.customerDanceFees}}</i>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background:cornflowerblue;">
+        <div class="d-flex flex-row justify-content-center">
+            <div>
+                <strong><i>------${{floorFee}} Floor Fee------</i></strong>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+            <div class="p-2" *ngFor="let in of counter(7); let ind = index"
+                [ngStyle]="{'border':getHour(ind) ? 'solid 4px red' : 'none' }">
+
+                <i>{{scheduleObj(ind)?.title}}</i>
+                <div class="row" *ngFor="let in of counter(1); let i = index">
+
+                    <div *ngFor="let item of entertainerDancesResuts; index as i;"
+                        class="col-sm-12 col-md-6 col-lg-6 col-xl-6" [ngStyle]="{'background': item.background}">
+                        {{countDanceObj(ind, item)}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1"  [ngStyle]="{'background':element?.id == endDanceId ? 'red' : '#a0729d' }"></div>
+    <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background: #a6a4a1;border: solid 1px gray;">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="p-2" matTooltip="Collect all monies due" [matTooltipPosition]="'above'"
+                        (click)="quotaSumaryV2()" style="cursor: pointer;">
+                        <div class="d-flex flex-row justify-content-center">
+
+                            <mat-icon>currency_exchange</mat-icon>
+                        </div>
+                    </div>
+                    <div class="p-2"
+                        [ngStyle]="{'background':quotaResut?.quotaPaidTotal == 0 || quotaResut?.quotaPaidTotal == null || quotaResut?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                        <div>
+                            <i *ngIf="quotaResut?.quotaPaidTotal != null">Quota paid:
+                                ${{quotaResut?.quotaPaidTotal}}</i>
+                            <i *ngIf="quotaResut?.quotaPaidTotal == null">Quota paid: $0</i>
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <i *ngIf="quotaResut?.feePayableTotal != null && quotaResut?.feePayableTotal >= 0">Fee payable: ${{quotaResut?.feePayableTotal}}</i>
+                        <i *ngIf="quotaResut?.feePayableTotal != null && quotaResut?.feePayableTotal < 0">Fee payable: (${{feePay(quotaResut?.feePayableTotal)}})</i>
+                        <i *ngIf="quotaResut?.feePayableTotal == null">Fee payable: $0</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background: #a6a4a1; border: solid 1px gray;">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="p-2">
+                        <i *ngIf="quotaResut?.baseFee != null">Base fee: ${{quotaResut?.baseFee}}</i>
+                        <i *ngIf="quotaResut?.baseFee == null">Base fee: $0</i>
+                    </div>
+                    <div class="p-2">
+                        <i *ngIf="quotaResut?.percentExposeTotal != null">30% Exposé:
+                            ${{quotaResut?.percentExposeTotal}}</i>
+                        <i *ngIf="quotaResut?.percentExposeTotal == null">30% Exposé: $0</i>
+                    </div>
+                    <div class="p-2">
+                        <i *ngIf="quotaResut?.percentEntertainerTotal != null">70% Entertainer:
+                            ${{quotaResut?.percentEntertainerTotal}}</i>
+                        <i *ngIf="quotaResut?.percentEntertainerTotal == null">70% Entertainer: $0</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--xl 992 hasta 1439-->
+<!--end xl 992 hasta 1439-->
+
+<!--only for mobil and table-->
+<!--end only for mobil and table-->

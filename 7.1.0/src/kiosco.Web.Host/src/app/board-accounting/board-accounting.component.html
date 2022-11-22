@@ -1,0 +1,64 @@
+<mat-dialog-content>
+    <div style="border: solid 1px gray;" class="container-fluid m-2" #screen>
+        <div class="row" style="background: cornflowerblue;">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-2">
+                <h2>DAILY DEPOSIT BAG</h2>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-2">
+                <h1 style="color: red;">{{shiftName}}</h1>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-2">
+                <mat-form-field>
+                    <select matNativeControl (change)="selectShift($event)" name="shift" [formControl]="shiftId">
+                        <option *ngFor="let entry of shiftsResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <h4>{{today | date:'fullDate'}}</h4>
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                <button (click)="openRevenueHistorical()" mat-raised-button color="primary">
+                    <mat-icon aria-label="Cancel">history</mat-icon>
+                    Revenue historical
+                </button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="d-flex flex-row">
+                    <div class="p-2">Grand Total</div>
+                    <div class="p-2" style="overflow-x: auto;">
+                        <h4>${{revenuesTotal?.total}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                <button mat-icon-button (click)="print()">
+                    <mat-icon>print</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="shiftObj != undefined">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-4"
+                *ngFor="let item of sectionsResults; index as i;">
+                <app-section-bag-report [shift]="shiftObj" [section]="item"
+                    (changeInfoSection)="changeInfoSection($event)" (changeInfoGroup)="changeInfoGroup($event)">
+                </app-section-bag-report>
+
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="align-right custom-mat-dialog-actions">
+    <button style="margin-right: 10px;" mat-raised-button color="warn" mat-dialog-close>
+        <mat-icon aria-label="Cancel">cancel</mat-icon>
+        Exit
+    </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>{{entityDto.id > 0 ? 'Edit' : 'Add'}}</h2>
+
+<!--<form [formGroup]="form" (ngSubmit)="save()">-->
+    <form (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row">
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <h2>wait...</h2>
+            </div>
+           <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Title</mat-label>
+                    <input matInput placeholder="Title" formControlName="title" required>
+                    <mat-hint>Fill in title.</mat-hint>
+                    <mat-error *ngIf="titleControl.invalid && (titleControl.dirty || titleControl.touched)">
+                        <span *ngIf="titleControl.hasError('required')">
+                            You must fill in the title.
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>-->
+
+            
+            <!--<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>FromTime</mat-label>
+                    <input matInput [matDatepicker]="pickerFromTime" formControlName="fromTime" required placeholder=""
+                           name="pickerFromTime">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFromTime"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFromTime></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pl-xl-5 pl-lg-5">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>ToTime</mat-label>
+                    <input matInput [matDatepicker]="pickerToTime" formControlName="toTime" required placeholder=""
+                           name="pickerToTime">
+                    <mat-datepicker-toggle matSuffix [for]="pickerToTime"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerToTime></mat-datepicker>
+                </mat-form-field>
+            </div>-->
+
+            <!--<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>FromTime</mat-label>
+                    <input type="time" matInput formControlName="fromTime" required placeholder=""
+                           name="fromTime">
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>ToTime</mat-label>
+                    <input type="time" matInput formControlName="toTime" required placeholder=""
+                           name="toTime">
+                </mat-form-field>
+            </div>-->
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Title</mat-label>
+                    <input matInput placeholder="Title" [(ngModel)]="entityDto.title" required [ngModelOptions]="{standalone: true}">
+                    <mat-hint>Fill in title.</mat-hint>
+                </mat-form-field>
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <label>FromTime</label>
+                <timepicker [(ngModel)]="entityDto.fromTime" [showMeridian]="ismeridian"  [ngModelOptions]="{standalone: true}"></timepicker>
+                <!--<pre class="alert alert-info">Time is: {{entityDto.fromTime }}</pre>-->
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <label>ToTime</label>
+                <timepicker [(ngModel)]="entityDto.toTime" [showMeridian]="ismeridian"  [ngModelOptions]="{standalone: true}"></timepicker>
+                <!--<pre class="alert alert-info">Time is: {{entityDto.toTime }}</pre>-->
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <button type="button" class="btn btn-info" (click)="toggleMode()">12H / 24H</button>
+            </div>
+        </div>
+  
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+
+        <!--<button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>-->
+
+        <button type="submit" mat-raised-button color="primary">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>
+  
+  </form>

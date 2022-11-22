@@ -1,0 +1,669 @@
+<!--<h2 mat-dialog-title>Report</h2>
+
+    <mat-dialog-content>
+        <div class="container-fluid" style="background: gray;">
+            <div class="d-flex flex-row justify-content-center" style="color: white;" *ngIf="shiftsResults?.length == 0 && existShift">
+                
+                <div  class="alert alert-primary mt-4" role="alert">
+                    <h6>Please create a shift</h6>
+                </div>
+            </div>
+            <div class="row" *ngIf="shiftsResults.length > 0">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-2" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">{{shiftOne}}</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-10">
+
+                    <div class="row" *ngFor='let in of counter(1) ;let i = index'>
+                        <div *ngFor="let item of danceTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <div class="p-2"><strong>{{item.title}}</strong></div>
+                                    </div>
+            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div>
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="pl-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div>
+                                    <i *ngIf="totalResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="pl-2">
+                                    <i *ngIf="totalResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="pl-2">
+                                    <i *ngIf="totalResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="pl-2">
+                                    <i *ngIf="totalResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="pl-2">
+                                    <i *ngIf="totalResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="shiftsResults.length > 1">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-2" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">{{shiftTwo}}</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-10">
+
+                    <div class="row" *ngFor='let in of counter(1) ;let i = index'>
+                        <div *ngFor="let item of danceTotalTwoResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <div class="p-2"><strong>{{item.title}}</strong></div>
+                                    </div>
+            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div>
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="pl-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div>
+                                    <i *ngIf="totalTwoResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalTwoResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="pl-2">
+                                    <i *ngIf="totalTwoResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalTwoResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="pl-2">
+                                    <i *ngIf="totalTwoResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalTwoResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="pl-2">
+                                    <i *ngIf="totalTwoResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalTwoResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> ${{totalTwoResuts?.percentEntertainerTotal}}</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="pl-2">
+                                    <i *ngIf="totalTwoResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalTwoResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border: solid 2px;" *ngIf="shiftsResults.length > 0">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-2" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">Total</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-10">
+
+                    <div class="row" *ngFor='let in of counter(1) ;let i = index'>
+                        <div *ngFor="let item of danceSumTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <div class="p-2"><strong>{{item.title}}</strong></div>
+                                    </div>
+            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div>
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="pl-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div>
+                                    <i *ngIf="totalSumResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalSumResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="pl-2">
+                                    <i *ngIf="totalSumResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalSumResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="pl-2">
+                                    <i *ngIf="totalSumResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalSumResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="pl-2">
+                                    <i *ngIf="totalSumResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalSumResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="pl-2">
+                                    <i *ngIf="totalSumResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalSumResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+        
+        <button style="margin-right: 10px;" mat-raised-button color="primary" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Accept
+        </button>
+
+    </mat-dialog-actions>-->
+
+<!--only for mobil and table-->
+<div class="container-fluid" style="background: #9c8cb3;" *ngIf="getScreenWidth < 992">
+    <!--<div class="container-fluid" style="background: gray;" *ngIf="getScreenWidth > 991">-->
+    <!--<h5 style="color: #6f349d;">Entertainer Statistics For:</h5>-->
+    <h6>Entertainer Statistics For: {{ today | date:'shortDate' }} </h6>
+    <div class="d-flex flex-row justify-content-center" style="color: white;" *ngIf="shiftsResults?.length == 0 && existShift">
+        
+        <div  class="alert alert-primary mt-4" role="alert">
+            <h6>Please create a shift</h6>
+        </div>
+    </div>
+    <div class="row" *ngIf="shiftsResults.length > 0">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+            <h3 style="color: white;" class="mt-xs text-center">{{shiftOne}}</h3>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+            <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                <div style="padding-bottom: 64px;" *ngFor="let item of danceTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                    
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="p-2">
+                                <i>Total: {{item.danceTotal}}</i>
+                            </div>
+                            <div class="p-2">
+                                <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                             </div>
+                        </div>
+                        
+                       
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background:#acaaac;">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="p-2" *ngFor="let in of counter(7); let ind = index" [ngStyle]="{'border':getHour(ind) ? 'solid 4px red' : 'none' }">
+                    <i>{{scheduleObj(ind)?.title}}</i>
+                    <div class="row" *ngFor="let in of counter(1); let i = index">
+            
+                        <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                            [ngStyle]="{'background': item.background}">
+                            {{countDanceObj(ind, item)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="p-2">
+                            <i *ngIf="totalResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalResuts?.feePayableTotal}}</i>
+                            <i *ngIf="totalResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                        </div>
+                        <div class="p-2" [ngStyle]="{'background':totalResuts?.quotaPaidTotal == 0 || totalResuts?.quotaPaidTotal == null || totalResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                            <i *ngIf="totalResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalResuts?.quotaPaidTotal}}</i>
+                            <i *ngIf="totalResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        
+                         <div class="p-2">
+                            <i *ngIf="totalResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalResuts?.percentExposeTotal}}</i>
+                            <i *ngIf="totalResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                         </div>
+                         <div class="p-2">
+                            <i *ngIf="totalResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalResuts?.percentEntertainerTotal}}</i>
+                            <i *ngIf="totalResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                         <div class="p-2">
+                            <i *ngIf="totalResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalResuts?.baseFeeTotal}}</i>
+                            <i *ngIf="totalResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    
+    <div class="row" *ngIf="shiftsResults.length > 1">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+            <h3 style="color: white;" class="mt-xs text-center">{{shiftTwo}}</h3>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+            <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                <div style="padding-bottom: 64px;" *ngFor="let item of danceTotalTwoResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                    
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="p-2">
+                                <i>Total: {{item.danceTotal}}</i>
+                            </div>
+                            <div class="p-2">
+                                <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                             </div>
+                        </div>
+                        
+                       
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background:#acaaac;">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="grid_custom p-2" *ngFor="let in of counter(7); let ind = index" [ngStyle]="{'border':getHourNight(ind) ? 'solid 4px red' : 'none' }">
+                    <i>{{scheduleObjTwo(ind)?.title}}</i>
+                    <div class="row" *ngFor="let in of counter(1); let i = index">
+            
+                        <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                            [ngStyle]="{'background': item.background}">
+                            {{countDanceObjTwo(ind, item)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="p-2">
+                            <i *ngIf="totalTwoResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalTwoResuts?.feePayableTotal}}</i>
+                            <i *ngIf="totalTwoResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                        </div>
+                        <div class="p-2" [ngStyle]="{'background':totalTwoResuts?.quotaPaidTotal == 0 || totalTwoResuts?.quotaPaidTotal == null || totalTwoResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                            <i *ngIf="totalTwoResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalTwoResuts?.quotaPaidTotal}}</i>
+                            <i *ngIf="totalTwoResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        
+                         <div class="p-2">
+                            <i *ngIf="totalTwoResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalTwoResuts?.percentExposeTotal}}</i>
+                            <i *ngIf="totalTwoResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                         </div>
+                         <div class="p-2">
+                            <i *ngIf="totalTwoResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalTwoResuts?.percentEntertainerTotal}}</i>
+                            <i *ngIf="totalTwoResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                         <div class="p-2">
+                            <i *ngIf="totalTwoResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalTwoResuts?.baseFeeTotal}}</i>
+                            <i *ngIf="totalTwoResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="row" style="border: solid 2px;" *ngIf="shiftsResults.length > 0">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+            <h3 style="color: white;" class="mt-xs text-center">Total</h3>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+            <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                <div *ngFor="let item of danceSumTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                    
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="p-2">
+                                <i>Total: {{item.danceTotal}}</i>
+                            </div>
+                            <div class="p-2">
+                                <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                             </div>
+                        </div>
+                        
+                       
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="p-2">
+                            <i *ngIf="totalSumResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalSumResuts?.feePayableTotal}}</i>
+                            <i *ngIf="totalSumResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                        </div>
+                        <div class="p-2" [ngStyle]="{'background':totalSumResuts?.quotaPaidTotal == 0 || totalSumResuts?.quotaPaidTotal == null || totalSumResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                            <i *ngIf="totalSumResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalSumResuts?.quotaPaidTotal}}</i>
+                            <i *ngIf="totalSumResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                        
+                         <div class="p-2">
+                            <i *ngIf="totalSumResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalSumResuts?.percentExposeTotal}}</i>
+                            <i *ngIf="totalSumResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                         </div>
+                         <div class="p-2">
+                            <i *ngIf="totalSumResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalSumResuts?.percentEntertainerTotal}}</i>
+                            <i *ngIf="totalSumResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                    <div class="d-flex flex-row justify-content-center">
+                         <div class="p-2">
+                            <i *ngIf="totalSumResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalSumResuts?.baseFeeTotal}}</i>
+                            <i *ngIf="totalSumResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                         </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--end only for mobil and table-->
+
+        <div class="container-fluid" style="background: #9c8cb3;" *ngIf="getScreenWidth > 991">
+            <!--<div class="container-fluid" style="background: gray;" *ngIf="getScreenWidth > 991">-->
+            <!--<h5 style="color: #6f349d;">Entertainer Statistics For:</h5>-->
+            <h6>Entertainer Statistics For: {{ today | date:'shortDate' }} </h6>
+            <div class="d-flex flex-row justify-content-center" style="color: white;" *ngIf="shiftsResults?.length == 0 && existShift">
+                
+                <div  class="alert alert-primary mt-4" role="alert">
+                    <h6>Please create a shift</h6>
+                </div>
+            </div>
+            <div class="row" *ngIf="shiftsResults.length > 0">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">{{shiftOne}}</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+                    <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                        <div style="padding-bottom: 64px;" *ngFor="let item of danceTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="p-2">
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="p-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background:#acaaac;">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="p-2" *ngFor="let in of counter(7); let ind = index" [ngStyle]="{'border':getHour(ind) ? 'solid 4px red' : 'none' }">
+                            <i>{{scheduleObj(ind)?.title}}</i>
+                            <div class="row" *ngFor="let in of counter(1); let i = index">
+                    
+                                <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                                    [ngStyle]="{'background': item.background}">
+                                    {{countDanceObj(ind, item)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div class="p-2">
+                                    <i *ngIf="totalResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="p-2" [ngStyle]="{'background':totalResuts?.quotaPaidTotal == 0 || totalResuts?.quotaPaidTotal == null || totalResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                                    <i *ngIf="totalResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="p-2">
+                                    <i *ngIf="totalResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="p-2">
+                                    <i *ngIf="totalResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="p-2">
+                                    <i *ngIf="totalResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" *ngIf="shiftsResults.length > 1">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">{{shiftTwo}}</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+                    <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                        <div style="padding-bottom: 64px;" *ngFor="let item of danceTotalTwoResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="p-2">
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="p-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" style="background:#acaaac;">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="grid_custom p-2" *ngFor="let in of counter(7); let ind = index" [ngStyle]="{'border':getHourNight(ind) ? 'solid 4px red' : 'none' }">
+                            <i>{{scheduleObjTwo(ind)?.title}}</i>
+                            <div class="row" *ngFor="let in of counter(1); let i = index">
+                    
+                                <div *ngFor="let item of baseDancesResults; index as i;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                                    [ngStyle]="{'background': item.background}">
+                                    {{countDanceObjTwo(ind, item)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div class="p-2">
+                                    <i *ngIf="totalTwoResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalTwoResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="p-2" [ngStyle]="{'background':totalTwoResuts?.quotaPaidTotal == 0 || totalTwoResuts?.quotaPaidTotal == null || totalTwoResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                                    <i *ngIf="totalTwoResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalTwoResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="p-2">
+                                    <i *ngIf="totalTwoResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalTwoResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="p-2">
+                                    <i *ngIf="totalTwoResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalTwoResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="p-2">
+                                    <i *ngIf="totalTwoResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalTwoResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalTwoResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border: solid 2px;" *ngIf="shiftsResults.length > 0">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1" [ngStyle]="{'background': '#acaaac'}">
+                    <h3 style="color: white;" class="mt-xs text-center">Total</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5" style="background: #8eaac5;">
+
+                    <div class="row p-2" *ngFor='let in of counter(1) ;let i = index'>
+                        <div *ngFor="let item of danceSumTotalResuts; index as i;" class="col-sm-12 col-md-6 col-lg-3 col-xl-3 text-center" [ngStyle]="{'background': item.background}">
+                            
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="p-2">
+                                        <i>Total: {{item.danceTotal}}</i>
+                                    </div>
+                                    <div class="p-2">
+                                        <i>Fees: {{item.customerDanceFeesTotal}}</i>
+                                     </div>
+                                </div>
+                                
+                               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [ngStyle]="{'background': '#acaaac'}">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                <div class="p-2">
+                                    <i *ngIf="totalSumResuts?.feePayableTotal != null"><strong>Fee Payable:</strong> ${{totalSumResuts?.feePayableTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.feePayableTotal == null"><strong>Fee Payable:</strong> $0</i>
+                                </div>
+                                <div class="p-2" [ngStyle]="{'background':totalSumResuts?.quotaPaidTotal == 0 || totalSumResuts?.quotaPaidTotal == null || totalSumResuts?.feePayableTotal > 0 ? 'red' : '#1fbd4e' }">
+                                    <i *ngIf="totalSumResuts?.quotaPaidTotal != null"><strong>Quota paid:</strong> ${{totalSumResuts?.quotaPaidTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.quotaPaidTotal == null"><strong>Quota paid:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                
+                                 <div class="p-2">
+                                    <i *ngIf="totalSumResuts?.percentExposeTotal != null"><strong>30% Exposé:</strong> ${{totalSumResuts?.percentExposeTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.percentExposeTotal == null"><strong>30% Exposé:</strong> $0</i>
+                                 </div>
+                                 <div class="p-2">
+                                    <i *ngIf="totalSumResuts?.percentEntertainerTotal != null"><strong>70% Entertainer:</strong> ${{totalSumResuts?.percentEntertainerTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.percentEntertainerTotal == null"><strong>70% Entertainer:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" style="border: solid 1px gray;">
+                            <div class="d-flex flex-row justify-content-center">
+                                 <div class="p-2">
+                                    <i *ngIf="totalSumResuts?.baseFeeTotal != null"><strong>Base fee:</strong> ${{totalSumResuts?.baseFeeTotal}}</i>
+                                    <i *ngIf="totalSumResuts?.baseFeeTotal == null"><strong>Base fee:</strong> $0</i>
+                                 </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>

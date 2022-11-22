@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Upload file</h2>
+
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-12">
+                <ng-container>
+                    <input type="file" id="file" multiple 
+                        (change)="getFileDetails($event)">
+            
+                    <button class="ml-2" mat-flat-button color="primary" (click)="uploadFiles()">Upload</button>
+                </ng-container>
+            </div>
+
+            <div class="card col-12">
+                <div class="card-header">List of files</div>
+                <ul class="list-group list-group-flush" *ngFor="let file of myFiles">
+                    <li class="list-group-item">
+                        <a>{{ file.name }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+  
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>

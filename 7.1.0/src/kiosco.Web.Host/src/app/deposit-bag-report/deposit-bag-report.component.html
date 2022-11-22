@@ -1,0 +1,98 @@
+<div class="row mt-2 p-2" style="border: solid 4px gray;">
+    <h4 class="p-2">{{group.name}}</h4>
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row" *ngFor="let item of types; index as i;">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-xl-2 pt-lg-2">
+                <span *ngIf="price(item.id) > 0">{{item.name}} (${{price(item.id)}})</span>
+                <span *ngIf="percent(item.id) > 0">{{item.name}} ({{percent(item.id)}}%)</span>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngIf="isFind(item.id, i)">
+                <mat-form-field appearance="fill" floatLabel="always" color="primary">
+                    <mat-label>Count</mat-label>
+                    <input type="number" matInput placeholder="" [(ngModel)]="counts[i].count"
+                        (ngModelChange)="onFieldChange($event, item.id, i)">
+                </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngIf="!isFind(item.id, i)">
+                <mat-form-field appearance="fill" floatLabel="always" color="primary">
+                    <mat-label>Count</mat-label>
+                    <input type="number" matInput placeholder="" [(ngModel)]="addCounts[i]"
+                        (ngModelChange)="onFieldChange($event, item.id, i)">
+                </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="d-flex flex-row"><strong>Totals</strong></div>
+                <div class="d-flex flex-row" *ngIf="isFind(item.id, i)">
+                    <div>${{counts[i].total}}</div>
+                </div>
+                <div class="d-flex flex-row" *ngIf="!isFind(item.id, i)">
+                    <div>$0</div>
+                </div>
+
+            </div>
+
+        </div>
+        <app-sub-deposit *ngFor="let item of subs; index as i;" [shift]="shiftObj" [group]="item"
+            (changeInfoSub)="changeInfoSub($event)">
+        </app-sub-deposit>
+
+        <div class="container p-2 mb-2" style="border: solid 3px gray;" *ngIf="waitressRevenues.length > 0">
+            <h6 class="text-center">WAITRESS REVENUES</h6>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4">
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center">
+                    CASH
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center">
+                    CREDIT
+                </div>
+            </div>
+            <div class="row" *ngFor="let item of waitressRevenues; index as i;">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center">
+                    {{item.name}}
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center" *ngIf="!isFindRevenues(item.id)">
+                    <mat-form-field appearance="fill" floatLabel="always" color="primary">       
+                        <input type="number" matInput placeholder="" [(ngModel)]="addCash[i]"
+                        (ngModelChange)="onFieldChangeCash($event, item.id)">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center" *ngIf="isFindRevenues(item.id)">
+                    <mat-form-field appearance="fill" floatLabel="always" color="primary">       
+                        <input type="number" matInput placeholder="" [(ngModel)]="revenuesResult[i].cash"
+                        (ngModelChange)="onFieldChangeCash($event, item.id)">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center"  *ngIf="!isFindRevenues(item.id)">
+                    <mat-form-field appearance="fill" floatLabel="always" color="primary">       
+                        <input type="number" matInput placeholder="" [(ngModel)]="addCredit[i]"
+                        (ngModelChange)="onFieldChangeCredit($event, item.id)">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-4 col-xl-4 text-center"  *ngIf="isFindRevenues(item.id)">
+                    <mat-form-field appearance="fill" floatLabel="always" color="primary">       
+                        <input type="number" matInput placeholder="" [(ngModel)]="revenuesResult[i].credit"
+                        (ngModelChange)="onFieldChangeCredit($event, item.id)">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="d-flex flex-row justify-content-end">
+                <div style="border: solid 2px gray;"><strong class="p-2"><i>${{groupTotal?.total}}</i></strong></div>
+            </div>
+        </div>
+    </div>
+</div>

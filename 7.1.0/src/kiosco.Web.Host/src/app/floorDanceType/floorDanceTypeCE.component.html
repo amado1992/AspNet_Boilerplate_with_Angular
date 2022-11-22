@@ -1,0 +1,104 @@
+<h2 mat-dialog-title>{{entityDto.id > 0 ? 'Edit' : 'Add'}}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row">
+            <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <h2>wait...</h2>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Entertainers</mat-label>
+                    <mat-select placeholder="" name="entertainer" required formControlName="activityTodayId">
+                        <mat-option *ngFor="let entry of entertainersResults" [value]="entry.id">
+                            {{ entry.entertainerFirstName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>DanceTypes</mat-label>
+                    <mat-select placeholder="" name="danceType" formControlName="danceTypeId">
+                        <mat-option *ngFor="let entry of danceTypesResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Restrictions</mat-label>
+                    <mat-select placeholder="" name="key" formControlName="keyId">
+                        <mat-option *ngFor="let entry of keysResults" [value]="entry.id">
+                            {{ entry.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Shifts</mat-label>
+                    <mat-select placeholder="" name="shift" formControlName="shiftId">
+                        <mat-option *ngFor="let entry of shiftsResults" [value]="entry.id">
+                            {{ entry.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Start</mat-label>
+                    <input matInput [ngxMatDatetimePicker]="pickerStart" placeholder="" formControlName="start"
+                        [min]="minDate" [max]="maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerStart [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
+                        [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color"
+                        [enableMeridian]="enableMeridian">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>End</mat-label>
+                    <input matInput [ngxMatDatetimePicker]="pickerEnd" placeholder="" formControlName="end"
+                        [min]="minDate" [max]="maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #pickerEnd [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
+                        [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color"
+                        [enableMeridian]="enableMeridian">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" floatLabel="always" color="primary">
+                    <mat-label>Count</mat-label>
+                    <input type="number" matInput placeholder="" formControlName="count">
+                </mat-form-field>
+            </div>
+        
+        </div>
+  
+</mat-dialog-content>
+
+    <mat-dialog-actions class="align-right custom-mat-dialog-actions">
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon aria-label="Save">save</mat-icon>
+            Guardar
+        </button>
+        <button style="margin-right: 10px;" mat-raised-button color="warn" (click)="cancel()" mat-dialog-close>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+            Cancelar
+        </button>
+
+    </mat-dialog-actions>
+  
+  </form>
